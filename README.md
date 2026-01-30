@@ -1,262 +1,137 @@
-# BruteForce
+#BruteForce
 
-Krafti – AI-Powered Craft Listing Generator (MVP)
-Overview
+# Krafti — AI-Powered Craft Listing Generator (MVP)
 
-Krafti is a web application that transforms a single product photo uploaded by an artisan into a ready-to-use product listing.
-It focuses on handcrafted goods and emphasizes visual quality, material awareness, and artisan storytelling.
+## Overview
 
-From one image, Krafti:
+Krafti is a web application that converts a single product photo uploaded by an artisan into a ready-to-use product listing.
 
-Removes the background
+The system is designed specifically for handcrafted goods and emphasizes:
+- visual clarity
+- material awareness
+- honest, descriptive language
 
-Enhances the product image
+From a single image, Krafti:
+- removes the background
+- enhances the product image
+- generates a product title and description using vision and language models
+- prepares the pipeline for an independent pricing intelligence layer
 
-Generates a product title and description using vision + language models
+This MVP demonstrates a complete **image → intelligence → listing** workflow.
 
-(Prepared) Estimates a suggested price via an independent pricing layer
+---
 
-This MVP demonstrates a complete image → intelligence → listing pipeline.
+## High-Level Architecture
 
-High-Level Architecture
-Frontend (React + TypeScript)
-        |
-        |  multipart/form-data (image)
-        v
-AI Service (FastAPI, Python)
-        |
-        |-- Image Enhancement Pipeline
-        |-- Vision → Text Pipeline
-        |-- Language Polishing (LLM)
-        |
-        v
-JSON Response
-(title, description, enhanced image, price placeholder)
+- **Frontend (React + TypeScript)**
+  - Sends multipart image upload
+- **AI Service (FastAPI, Python)**
+  - Processes image and generates intelligence
+- **Response**
+  - JSON containing image, title, description, and price placeholder
 
-Tech Stack
-Frontend
+  
+---
 
-React
+## Tech Stack
 
-TypeScript
+### Frontend
+- React
+- TypeScript
+- Vite
+- TailwindCSS
+- Fetch API
 
-Vite
+### Backend (AI Service)
+- FastAPI
+- Uvicorn
+- Python 3.x
 
-TailwindCSS
+### AI / ML
+- Background removal: rembg (U²-Net)
+- Image enhancement: Pillow
+- Vision → text: BLIP (Salesforce/blip-image-captioning-base)
+- Text refinement: Groq LLM (polishing only)
 
-Fetch API
+### Supporting Libraries
+- transformers
+- torch
+- huggingface-hub
+- python-multipart
+- numpy
+- onnxruntime
+- python-dotenv
 
-Backend (AI Service)
+---
 
-FastAPI
+## AI Pipeline
 
-Uvicorn
+### 1. Image Upload
+- User uploads a single product image.
 
-Python 3.x
+### 2. Background Removal
+- Powered by rembg (U²-Net).
+- Produces an RGBA image with transparency.
+- Fail-safe: original image is returned if removal fails.
 
-AI / ML
+### 3. Image Enhancement
+- Deterministic and non-destructive.
+- Slight brightness increase.
+- Contrast boost.
+- Mild sharpening.
+- No artistic filters to preserve craft authenticity.
 
-Background removal: rembg (U²-Net)
+### 4. Vision → Text
+- BLIP generates a raw, factual caption.
+- Example:
 
-Image enhancement: Pillow (brightness, contrast, sharpness)
 
-Vision → text: BLIP (Salesforce/blip-image-captioning-base)
 
-Text refinement: Groq LLM (polishing only, not vision)
+### 5. Language Polishing
+- Raw caption is passed to a Groq-hosted LLM.
+- The LLM:
+- avoids marketing language
+- conservatively infers material, form, and texture
+- Generates:
+- a short product title
+- two descriptive sentences
+- Fail-safe: falls back to the raw caption if the LLM fails.
 
-Future pricing intelligence: isolated, rule + model driven
+### 6. Response to Frontend
 
-Supporting Libraries
-
-transformers
-
-torch
-
-huggingface-hub
-
-python-multipart
-
-numpy
-
-onnxruntime
-
-python-dotenv
-
-AI Pipeline (Step-by-Step)
-1. Image Upload
-
-The user uploads a single product image from the frontend.
-
-2. Background Removal
-
-Powered by rembg
-
-Uses U²-Net
-
-Produces an RGBA image with transparent background
-
-Fail-safe: returns original image if removal fails
-
-3. Image Enhancement
-
-Deterministic, non-destructive enhancements
-
-Slight brightness lift
-
-Contrast boost
-
-Mild sharpening
-
-No artistic filters (important for crafts authenticity)
-
-4. Vision → Text (Captioning)
-
-BLIP model generates a raw visual caption
-
-Example:
-
-"a ceramic mug with a curved handle and matte surface"
-
-
-This caption is factual and visual, not marketing-oriented.
-
-5. Language Polishing (Groq LLM)
-
-The raw caption is passed to a Groq-hosted LLM
-
-The LLM is instructed to:
-
-Avoid generic phrases
-
-Infer material, texture, and form conservatively
-
-Produce artisan-style language
-
-Generate:
-
-A 3–6 word title
-
-2 short descriptive sentences
-
-If the LLM fails or is unavailable, the system falls back safely to the raw vision caption.
-
-6. Response to Frontend
-
-The API returns:
-
+```json
 {
-  "image": "<base64>",
-  "title": "Earthen Terra Vessel",
-  "description": [
-    "A sturdy clay vessel with organic curves and subtle surface texture.",
-    "Natural tones evoke a grounded, rustic character."
-  ],
-  "price": null
+"image": "<base64>",
+"title": "Earthen Terra Vessel",
+"description": [
+  "A sturdy clay vessel with organic curves and subtle surface texture.",
+  "Natural tones evoke a grounded, rustic character."
+],
+"price": null
 }
 
-Folder Structure (AI Service)
+
 ai-service/
 │
 ├── app/
-│   ├── main.py                # FastAPI entry point
-│   │
+│   ├── main.py
 │   ├── api/
-│   │   └── enhance.py         # /enhance endpoint
-│   │
+│   │   └── enhance.py
 │   ├── services/
-│   │   ├── background.py      # Background removal (rembg)
-│   │   ├── enhancement.py     # Image enhancement
-│   │   ├── description.py     # Vision caption generation (BLIP)
-│   │   ├── groq_llm.py        # Text polishing (Groq)
-│   │   └── vision_stub.py     # Testing / fallback
-│   │
+│   │   ├── background.py
+│   │   ├── enhancement.py
+│   │   ├── description.py
+│   │   ├── groq_llm.py
+│   │   └── vision_stub.py
 │   ├── utils/
-│   │   ├── image.py           # PIL → base64 utilities
+│   │   ├── image.py
 │   │   └── validators.py
-│   │
-│   └── test_pipeline.py       # End-to-end testing
+│   └── test_pipeline.py
 │
 ├── venv/
 └── requirements.txt
 
 
-Important design rule followed:
-Each service is independent. No circular dependencies. Pricing can be added without touching vision or enhancement.
-
-Frontend Flow
-
-User uploads image
-
-Progress indicator runs
-
-/enhance endpoint is called
-
-Result page displays:
-
-Enhanced image
-
-Generated title
-
-Generated description
-
-Placeholder price
-
-User can upload another product
-
-No job queues. No polling. Direct synchronous MVP flow.
-
-Current MVP Status (Honest Evaluation)
-What Is Working Well
-
-End-to-end pipeline is complete
-
-Vision + language integration is real, not mocked
-
-Image quality improvement is visible
-
-Outputs are no longer hardcoded
-
-Architecture is modular and extensible
-
-What Is Still Weak
-
-Vision captions can still be generic for simple objects
-
-Pricing intelligence not yet implemented
-
-No user feedback loop or edits
-
-No caching or persistence
-
-Overall Verdict
-
-This is a solid MVP, not a demo toy.
-
-For a hackathon or early-stage product:
-
-This is credible
-
-The AI work is real
-
-The scope is appropriate
-
-The system is extensible
-
-It is not yet “winning” on polish or depth — but it wins on architecture and execution.
-
-Next Logical Extensions (Non-Breaking)
-
-Independent price intelligence module
-
-Multi-image support
-
-Material classification head
-
-Seller tone customization
-
-Editable AI suggestions
-
-Running the AI Service
 # Activate virtual environment
 venv\Scripts\activate
 
@@ -265,3 +140,5 @@ pip install -r requirements.txt
 
 # Run server
 python -m uvicorn app.main:app --host 127.0.0.1 --port 8000
+
+

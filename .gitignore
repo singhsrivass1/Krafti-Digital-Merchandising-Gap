@@ -1,0 +1,52 @@
+# ===============================
+# Node / JavaScript
+# ===============================
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# ===============================
+# Environment variables (SECRETS)
+# ===============================
+.env
+.env.*
+!.env.example
+
+# ===============================
+# Build outputs
+# ===============================
+dist/
+build/
+out/
+
+# ===============================
+# Vite / React
+# ===============================
+.vite/
+.vite-cache/
+
+# ===============================
+# Uploads / user-generated files
+# ===============================
+uploads/
+backend/uploads/
+ui/uploads/
+
+# ===============================
+# OS / Editor junk
+# ===============================
+.DS_Store
+Thumbs.db
+
+# ===============================
+# TypeScript
+# ===============================
+*.tsbuildinfo
+
+# ===============================
+# IDEs
+# ===============================
+.vscode/
+.idea/

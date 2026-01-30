@@ -33,7 +33,8 @@ export default function UploadPage() {
     setJobId(data.jobId)
   }
 
- 
+
+  
   useEffect(() => {
     if (!uploading) return
 
@@ -50,7 +51,7 @@ export default function UploadPage() {
     return () => clearInterval(interval)
   }, [uploading])
 
-  
+
   useEffect(() => {
     if (!jobId) return
 
@@ -69,7 +70,6 @@ export default function UploadPage() {
     return () => clearInterval(poll)
   }, [jobId, navigate])
 
-  
   return (
     <div className="min-h-screen flex justify-center bg-[#f7f3f0]">
       <div className="w-full max-w-sm p-6">
@@ -115,7 +115,7 @@ export default function UploadPage() {
           </>
         )}
 
-    
+       
         {uploading && (
           <>
             <h2 className="text-xl font-semibold text-[#3e2723] mb-6">

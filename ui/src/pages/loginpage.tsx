@@ -17,18 +17,18 @@ export default function LoginPage() {
           </span>
         </div>
 
-      
+       
         <div className="relative z-10 flex flex-col h-full">
 
-     
+         
           <div className="flex items-center justify-center gap-2">
-            <span className="text-xl"></span>
+            <span className="text-xl">🔥</span>
             <span className="text-lg font-semibold tracking-tight text-[#4A2E1F]">
               Krafti
             </span>
           </div>
 
-        
+          
           <h1 className="mt-6 text-2xl font-semibold tracking-tight text-center text-[#4A2E1F]">
             Enhance Your Craft
           </h1>
@@ -44,10 +44,10 @@ export default function LoginPage() {
             Continue with Google
           </button>
 
-          
+         
           <div className="my-8 h-px bg-[#EADFD3]" />
 
-        
+       
           <div className="w-full h-40 rounded-2xl bg-[#F3E6DA] flex items-center justify-center text-[#8A6A54] text-sm">
             Product photo → Enhanced image
           </div>
@@ -68,9 +68,7 @@ export default function LoginPage() {
 
             <div>
               <h3 className="font-semibold text-[#4A2E1F]">
-                Faster Than Traditional Editing.
-                 Enhaces the picture 
-
+                Faster Than Traditional Editing
               </h3>
               <p className="mt-1">
                 Skip photographers, editing tools, and delays.
@@ -112,7 +110,7 @@ export default function LoginPage() {
 
           </div>
 
-         
+          
           <p className="mt-auto pt-8 text-xs text-center text-[#8A6A54]">
             By continuing, you agree to Krafti’s Terms & Privacy Policy
           </p>

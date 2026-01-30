@@ -23,11 +23,13 @@ export default function App() {
       />
 
       <Route path="/login" element={<LoginPage />} />
+       
       {/* <Route path="/result" element={<ResultPage />} /> */}
     </Routes>
   )
 }
-/*  <Route path="/upload" element={<UploadPage />} />
-      <Route path="/processing" element={<ProcessingPage />} />
+
+     /* <Route path="/processing" element={<ProcessingPage />} />
       <Route path="/result" element={<ResultPage />} />
-      <Route path="/about" element={<AboutPage />} */
+      <Route path="/about" element={<AboutPage />} 
+      <Route path="/upload" element={<UploadPage />} />*/

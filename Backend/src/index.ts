@@ -3,8 +3,8 @@ dotenv.config()
 import express from "express"
 import cors from "cors"
 import cookieParser from "cookie-parser"
-//import uploadRoutes from "./routes/upload"
-//import resultRoutes from "./routes/result"
+import uploadRoutes from "./routes/upload"
+import resultRoutes from "./routes/result"
 import authRoutes from "./routes/auth"
 
 
@@ -20,8 +20,8 @@ app.use(cookieParser())
 app.use(express.json())
 
 app.use("/api/auth", authRoutes)
-//app.use("/api", uploadRoutes)
-//app.use("/api", resultRoutes)
+app.use("/api", uploadRoutes)
+app.use("/api", resultRoutes)
 
 
 app.get("/api/user", (req, res) => {

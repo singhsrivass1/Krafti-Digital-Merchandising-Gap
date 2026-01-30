@@ -6,7 +6,7 @@ import RequireAuth from "./auth/requireauth"
 import LoginPage from "./pages/loginpage"
 import UploadPage from "./pages/upload_page"
 //import ProcessingPage from "./pages/ProcessingPage"
-// import ResultPage from "./pages/result"
+ import ResultPage from "./pages/result"
 //import AboutPage from "./pages/AboutPage"
 
 export default function App() {
@@ -24,7 +24,7 @@ export default function App() {
 
       <Route path="/login" element={<LoginPage />} />
        
-      {/* <Route path="/result" element={<ResultPage />} /> */}
+      { <Route path="/result" element={<ResultPage />} /> }
     </Routes>
   )
 }

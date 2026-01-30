@@ -6,14 +6,17 @@ export default function LandingPage() {
   const { user, loading } = useAuth()
 
   function handleUploadClick() {
-    if (loading) return
+  console.log("AUTH STATE:", { user, loading })
 
-    if (!user) {
-      navigate("/login")
-    } else {
-      navigate("/upload")
-    }
-  }
+  if (loading) return
+   navigate ("/login")
+  // if (!user) {
+  //   navigate("/login")
+  // } else {
+  //   navigate("/upload")
+  // }
+}
+
 
   return (
     <main className="min-h-screen flex justify-center px-4 py-6">
@@ -42,11 +45,15 @@ export default function LandingPage() {
           
           <button
             onClick={handleUploadClick}
-            className="cta-btn"
+            disabled={loading}
+            className={`cta-btn ${
+              loading ? "opacity-50 pointer-events-none" : ""
+            }`}
           >
             <span className="text-lg">📷</span>
-            Upload Photo
+            {loading ? "Checking session…" : "Upload Photo"}
           </button>
+
 
           
           <div className="preview">

@@ -37,9 +37,11 @@ router.get("/google/callback", async (req, res) => {
   }
 
   res.cookie("user", JSON.stringify(user), {
-    httpOnly: true,
-    sameSite: "lax"
-  })
+  httpOnly: true,
+  sameSite: "none",
+  secure: false // localhost only
+})
+
 
   res.redirect(`${process.env.FRONTEND_URL}/upload`)
 })

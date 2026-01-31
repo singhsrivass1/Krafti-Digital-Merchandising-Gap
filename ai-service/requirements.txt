@@ -10,7 +10,7 @@ Pillow>=9.5,<11
 numpy==1.26.4
 
 # --- Background removal ---
-rembg==2.0.50
+rembg>=2.0.62,<2.1
 onnxruntime>=1.16.0,<1.18
 
 # --- Vision → Text ---

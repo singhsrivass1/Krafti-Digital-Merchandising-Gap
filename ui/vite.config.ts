@@ -6,7 +6,11 @@ export default defineConfig({
   plugins: [react()],
   server: {
     proxy: {
-      "/api": "http://localhost:3000"
+     "/api": {
+      target: "https://bruteforce-v161.onrender.com",
+      changeOrigin: true,
+      secure: true
+    }
     }
   }
 })

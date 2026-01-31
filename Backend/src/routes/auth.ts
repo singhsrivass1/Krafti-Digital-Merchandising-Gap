@@ -35,11 +35,12 @@ router.get("/google/callback", async (req, res) => {
   }
 
   // TEMP: store user in cookie (later replace with DB + session)
-  res.cookie("user", JSON.stringify(user), {
-    httpOnly: true,
-    sameSite: "lax",
-    secure: true
-  })
+ res.cookie("user", JSON.stringify(user), {
+  httpOnly: true,
+  secure: true,
+  sameSite: "none"   
+})
+
 
   res.redirect(`${process.env.FRONTEND_URL}/upload`)
 })

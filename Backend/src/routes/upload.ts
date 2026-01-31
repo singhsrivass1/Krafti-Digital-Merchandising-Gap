@@ -51,53 +51,53 @@
 
 // export default router
 
-import { Router, Request, Response } from "express"
+// import { Router, Request, Response } from "express"
 
-import multer from "multer"
-import { callImageAI } from "../services/aiClient"
+// import multer from "multer"
+// import { callImageAI } from "../services/aiClient"
 
-const router = Router()
-const upload = multer()
+// const router = Router()
+// const upload = multer()
 
-interface MulterRequest extends Request {
-  file?: Express.Multer.File
-  cookies: {
-    user?: string
-  }
-}
+// interface MulterRequest extends Request {
+//   file?: Express.Multer.File
+//   cookies: {
+//     user?: string
+//   }
+// }
 
-router.post(
-  "/upload",
-  upload.single("file"),
-  async (req: MulterRequest, res: Response) => {
+// router.post(
+//   "/upload",
+//   upload.single("file"),
+//   async (req: MulterRequest, res: Response) => {
 
-    const file = req.file
-    const userCookie = req.cookies.user
+//     const file = req.file
+//     const userCookie = req.cookies.user
 
-    if (!file) {
-      return res.status(400).json({ error: "No file uploaded" })
-    }
+//     if (!file) {
+//       return res.status(400).json({ error: "No file uploaded" })
+//     }
 
-    if (!userCookie) {
-      return res.status(401).json({ error: "Not authenticated" })
-    }
+//     if (!userCookie) {
+//       return res.status(401).json({ error: "Not authenticated" })
+//     }
 
-    try {
-      const result = await callImageAI(
-        file.buffer,
-        file.originalname
-      )
+//     try {
+//       const result = await callImageAI(
+//         file.buffer,
+//         file.originalname
+//       )
 
-      res.json(result)
+//       res.json(result)
 
-    } catch (err) {
-      console.error("AI processing failed:", err)
-      res.status(500).json({ error: "AI processing failed" })
-    }
-  }
-)
+//     } catch (err) {
+//       console.error("AI processing failed:", err)
+//       res.status(500).json({ error: "AI processing failed" })
+//     }
+//   }
+// )
 
-export default router*/
+// export default router
 import { Router, Request, Response } from "express"
 import multer from "multer"
 import crypto from "crypto"

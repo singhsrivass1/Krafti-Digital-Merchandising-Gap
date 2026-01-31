@@ -42,7 +42,7 @@ router.get("/google/callback", async (req, res) => {
 })
 
 
-  res.redirect(`${process.env.FRONTEND_URL}/upload`)
+  res.redirect("https://krafti-bruteforce.vercel.app/upload")
 })
 
 export default router

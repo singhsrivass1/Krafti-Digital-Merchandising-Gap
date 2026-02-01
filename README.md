@@ -1,7 +1,7 @@
 #BruteForce
 
 
-Live Deployed App Link- krafti-bruteforce.vercel.app
+Live Deployed App Link- [link](krafti-bruteforce.vercel.app)
 
 
 # Krafti — AI-Powered Craft Listing Generator (MVP)
